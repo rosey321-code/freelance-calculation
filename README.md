@@ -7,7 +7,6 @@ A professional, all-in-one financial toolkit designed specifically for freelance
 ## 🚀 Live Demo
 You can view the live website here: 
 **[Live Demo on Netlify](https://freelance-calculation.netlify.app/)**  
-*(Or your GitHub Pages link)*
 
 ---
 
@@ -25,12 +24,6 @@ You can view the live website here:
 - **CSS3:** For modern, responsive styling and layout.
 - **JavaScript (ES6+):** For calculation logic and dynamic updates.
 - **Google Fonts:** For professional typography.
-
----
-
-## 📸 Screenshots
-*(Aap yahan apni website ka ek screenshot upload karke uska link de sakte hain)*
-![Website Preview](https://via.placeholder.com/800x400?text=Freelance+Calculator+Preview)
 
 ---
 
