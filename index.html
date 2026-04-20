@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CalcFreelancer - Free Freelancer Earnings Calculator, Invoice & Tax</title>
+<meta name="description" content="Free tools for freelancers in Pakistan: Calculate Upwork Fiverr earnings, generate invoices, estimate ITF tax, convert currencies. No sign-up needed.">
+<meta name="keywords" content="freelancer calculator pakistan, upwork fee calculator, fiverr earnings, freelancer invoice generator, PKR converter, pakistani tax, freelance tools">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://calcfreelancer.vercel.app/">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#0f172a;--blue:#3b82f6;--blue-dk:#2563eb;--bg:#f1f5f9;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;--green:#10b981;--red:#ef4444;--amber:#f59e0b;--r:10px}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+.container{max-width:940px;margin:0 auto;padding:0 14px}
+.topnav{background:var(--navy);color:#fff;position:sticky;top:0;z-index:200}
+.topnav-inner{max-width:940px;margin:0 auto;padding:0 14px;display:flex;align-items:center;justify-content:space-between;height:52px}
+.logo{font-size:1.2rem;font-weight:800}.logo span{color:var(--blue)}
+.tabs{background:var(--card);border-bottom:2px solid var(--border);display:flex;overflow-x:auto;position:sticky;top:52px;z-index:150}
+@media(max-width:500px){.topnav{height:48px}.tabs{top:48px}}
+.tab{flex:1;min-width:70px;padding:12px 6px;text-align:center;cursor:pointer;border:none;background:none;font-size:.77rem;font-weight:600;color:var(--muted);border-bottom:2.5px solid transparent;transition:all .15s;white-space:nowrap;font-family:inherit}
+.tab:hover{color:var(--blue);background:#f8fafc}
+.tab.active{color:var(--blue-dk);border-bottom-color:var(--blue);background:#eff6ff}
+@media(max-width:500px){.tab{font-size:.68rem;padding:10px 4px;min-width:60px}}
+.tc{display:none;padding:20px 0 32px}.tc.active{display:block}
+.card{background:var(--card);border-radius:var(--r);padding:18px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid var(--border)}
+.card h2{font-size:1.05rem;margin-bottom:2px;color:var(--navy)}
+.card>p{font-size:.8rem;color:var(--muted);margin-bottom:14px}
+.fg{margin-bottom:10px}
+.fg label{display:block;font-weight:600;margin-bottom:3px;font-size:.8rem}
+.fg small{font-size:.7rem;color:var(--muted);display:block;margin-top:2px}
+.sub-label{display:block;font-weight:600;font-size:.78rem;color:var(--muted);margin-bottom:6px}
+input,select{width:100%;padding:8px 10px;border:2px solid var(--border);border-radius:6px;font-size:.88rem;background:#fff;font-family:inherit;color:var(--text);transition:border-color .15s}
+input:focus,select:focus{outline:none;border-color:var(--blue)}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:500px){.fr{grid-template-columns:1fr}}
+.btn{display:flex;align-items:center;justify-content:center;padding:10px 16px;border:none;border-radius:6px;font-size:.86rem;font-weight:600;cursor:pointer;font-family:inherit;width:100%;transition:all .15s}
+.btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:var(--blue-dk)}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:#059669}
+.btn-ghost{background:#f8fafc;color:var(--text);border:1.5px solid var(--border)}
+.res{background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:var(--r);padding:13px;margin-top:12px}
+.res h4{color:#166534;font-size:.88rem;margin-bottom:7px;font-weight:700}
+.rr{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed #d1fae5;font-size:.83rem}
+.rr:last-child{border-bottom:none}
+.rl{color:#475569}.rv{font-weight:700}
+.rr .danger{color:var(--red)}.rr .success{color:var(--green)}
+.hl{background:linear-gradient(135deg,#166534,#15803d);color:#fff;border-radius:7px;padding:10px 12px;text-align:center;margin-top:7px}
+.hl .big{font-size:1.35rem;font-weight:800}.hl .lbl{opacity:.85;font-size:.73rem;margin-top:1px}
+.bk{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px}
+@media(max-width:460px){.bk{grid-template-columns:1fr}}
+.bk-item{background:#f8fafc;border-radius:6px;padding:8px;text-align:center}
+.bk-item .n{font-size:1rem;font-weight:800;color:var(--blue)}.bk-item .l{font-size:.66rem;color:var(--muted);margin-top:2px}
+.pbtns{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.pbtn{padding:5px 11px;border:2px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-weight:600;font-size:.72rem;color:var(--muted);transition:all .15s;font-family:inherit}
+.pbtn:hover{border-color:var(--blue);color:var(--blue)}
+.pbtn.active{border-color:var(--blue);background:#eff6ff;color:var(--blue)}
+.plat-info{font-size:.78rem;color:var(--blue);background:#eff6ff;padding:8px 10px;border-radius:6px;margin-bottom:12px;border-left:3px solid var(--blue)}
+.inv-box{border:2px solid var(--border);border-radius:var(--r);padding:20px;margin-top:12px;background:#fff}
+.tip-box{background:#fffbeb;border:1px solid #fde68a;border-radius:var(--r);padding:11px;margin-top:10px;font-size:.76rem;color:#92400e;line-height:1.5}
+.below{border-top:3px solid var(--border);padding-top:26px;margin-top:26px}
+.below h2{font-size:1.05rem;margin-bottom:10px;color:var(--navy)}
+.seo-card{background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:10px;border:1px solid var(--border)}
+.seo-card h3{font-size:.85rem;margin-bottom:4px;color:var(--navy)}
+.seo-card p{font-size:.78rem;color:var(--muted);line-height:1.6}
+.faq{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:11px 14px;margin-bottom:5px}
+.faq-q{font-weight:700;font-size:.82rem;margin-bottom:2px}
+.faq-a{font-size:.77rem;color:var(--muted);line-height:1.5}
+footer{background:var(--navy);color:#94a3b8;text-align:center;padding:22px 14px;margin-top:32px}
+footer .b{color:#fff;font-weight:700;font-size:.9rem}
+footer p{font-size:.72rem;margin-top:4px}
+@media print{.topnav,.tabs,.btn,.pbtns,.below,footer,.fg,.fr,.card{display:none!important}body{background:#fff}.inv-box{border:none;padding:0}.tc{display:block!important}}
+</style>
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner"><div class="logo"><span>Calc</span>Freelancer</div></div></nav>
+<div class="tabs" id="bar">
+<button class="tab active" data-t="earn" onclick="sw(this)">Earnings</button>
+<button class="tab" data-t="hourly" onclick="sw(this)">Hourly Rate</button>
+<button class="tab" data-t="invoice" onclick="sw(this)">Invoice</button>
+<button class="tab" data-t="currency" onclick="sw(this)">Currency</button>
+<button class="tab" data-t="tax" onclick="sw(this)">Tax</button>
+</div>
+<div class="container">
+<div id="earn" class="tc active">
+<div class="card">
+<h2>Earnings Calculator</h2>
+<p>Select your platform or type any. Fees fill automatically. Enter any amount and any currency.</p>
+<label class="sub-label">Platform</label>
+<div class="pbtns">
+<button class="pbtn active" onclick="gp('Upwork',10,2)">Upwork</button>
+<button class="pbtn" onclick="gp('Fiverr',20,2)">Fiverr</button>
+<button class="pbtn" onclick="gp('Freelancer',10,3)">Freelancer</button>
+<button class="pbtn" onclick="gp('Mostaql',5,1)">Mostaql</button>
+<button class="pbtn" onclick="gp('Toptal',0,1)">Toptal</button>
+<button class="pbtn" onclick="gp('Direct Client',0,2)">Direct</button>
+<button class="pbtn" onclick="gc()">Custom</button>
+</div>
+<div class="fr">
+<div class="fg"><label>Project Amount</label><input type="text" id="amt" value="500"></div>
+<div class="fg"><label>Platform Name</label><input type="text" id="pName" value="Upwork" placeholder="Any platform name"></div>
+</div>
+<div class="fr">
+<div class="fg"><label>Currency</label>
+<select id="cur" onchange="upRate()">
+<option value="USD">USD (US Dollar)</option>
+<option value="PKR">PKR (Pakistani Rupee)</option>
+<option value="EUR">EUR (Euro)</option>
+<option value="GBP">GBP (British Pound)</option>
+<option value="AED">AED (UAE Dirham)</option>
+<option value="SAR">SAR (Saudi Riyal)</option>
+<option value="CAD">CAD (Canadian Dollar)</option>
+<option value="AUD">AUD (Australian Dollar)</option>
+</select></div>
+<div class="fg"><label>Rate to PKR</label><input type="number" id="prate" value="278" oninput="calc()"></div>
+</div>
+<div class="fr">
+<div class="fg"><label>Platform Fee % (editable)</label><input type="number" id="pfee" value="10" step="0.1" min="0" max="100" oninput="calc()"></div>
+<div class="fg"><label>Withdrawal Fee % (editable)</label><input type="number" id="wfee" value="2" step="0.1" min="0" max="100" oninput="calc()"><small>Payoneer ~2.5%, Bank Wire ~1.5%, Wise ~1%</small></div>
+</div>
+<button class="btn btn-blue" onclick="calc()">Calculate Earnings</button>
+<div class="res" id="eres" style="display:none">
+<h4>Your Earning Breakdown</h4>
+<div class="rr"><span class="rl">Project Amount</span><span class="rv" id="r1"></span></div>
+<div class="rr"><span class="rl">Platform Fee</span><span class="rv danger" id="r2"></span></div>
+<div class="rr"><span class="rl">Withdrawal Fee</span><span class="rv danger" id="r3"></span></div>
+<div class="rr"><span class="rl"><strong>You Receive</strong></span><span class="rv success" id="r4"></span></div>
+<div class="hl"><div class="lbl">You Receive in PKR</div><div class="big" id="r5"></div></div>
+<div class="rr" style="margin-top:8px"><span class="rl">Total Fees Deducted</span><span class="rv danger" id="r6"></span></div>
+<div class="rr"><span class="rl">Effective Rate</span><span class="rv" id="r7"></span></div>
+</div>
+</div>
+</div>
+<div id="hourly" class="tc">
+<div class="card">
+<h2>Hourly Rate Calculator</h2>
+<p>Find the minimum hourly rate to charge after platform fees to hit your income goal.</p>
+<div class="fr">
+<div class="fg"><label>Target Monthly Income (USD)</label><input type="number" id="hinc" value="2000"></div>
+<div class="fg"><label>Working Hours / Day</label><input type="number" id="hhrs" value="8"></div>
+</div>
+<div class="fr">
+<div class="fg"><label>Working Days / Month</label><input type="number" id="hdays" value="22"><small>20-22 for weekends off</small></div>
+<div class="fg"><label>Platform Fee %</label><input type="number" id="hfee" value="10" step="0.1"><small>Upwork 10%, Fiverr 20%, Direct 0%</small></div>
+</div>
+<button class="btn btn-blue" onclick="calcH()">Calculate Rate</button>
+<div class="res" id="hres" style="display:none">
+<h4>Recommended Rates</h4>
+<div class="hl"><div class="lbl">Minimum Charge Per Hour</div><div class="big" id="h1"></div></div>
+<div class="bk">
+<div class="bk-item"><div class="n" id="h2"></div><div class="lbl">Monthly in PKR</div></div>
+<div class="bk-item"><div class="n" id="h3"></div><div class="lbl">Yearly Potential</div></div>
+<div class="bk-item"><div class="n" id="h4"></div><div class="lbl">Per Hour in PKR</div></div>
+</div>
+</div>
+</div>
+</div>
+<div id="invoice" class="tc">
+<div class="card">
+<h2>Invoice Generator</h2>
+<p>Fill details, add services, generate. Print or Save as PDF.</p>
+<div class="fr">
+<div class="fg"><label>Your Name</label><input type="text" id="ifrom" placeholder="Ahmed Ali"></div>
+<div class="fg"><label>Your Email</label><input type="email" id="imail" placeholder="you@email.com"></div>
+</div>
+<div class="fr">
+<div class="fg"><label>Client Name</label><input type="text" id="ito" placeholder="John Smith"></div>
+<div class="fg"><label>Invoice #</label><input type="text" id="inum" placeholder="INV-001"></div>
+</div>
+<div class="fr">
+<div class="fg"><label>Issue Date</label><input type="date" id="idate"></div>
+<div class="fg"><label>Due Date</label><input type="date" id="idue"></div>
+</div>
+<div class="fg"><label>Services</label>
+<div id="svc"></div>
+</div>
+<button class="btn btn-ghost" onclick="addS()" style="margin-bottom:8px">+ Add Service Line</button>
+<button class="btn btn-blue" onclick="genI()">Generate Invoice</button>
+<div class="inv-box" id="ibox" style="display:none"></div>
+<div id="ibtn" style="display:none;margin-top:8px">
+<button class="btn btn-green" onclick="window.print()">Print / Save as PDF</button>
+</div>
+</div>
+</div>
+<div id="currency" class="tc">
+<div class="card">
+<h2>Currency Converter</h2>
+<p>Select currencies or enter any custom rate. Supports 12+ currencies.</p>
+<div class="fr">
+<div class="fg"><label>Amount</label><input type="number" id="ca" value="500"></div>
+<div class="fg"><label>From</label>
+<select id="cf">
+<option value="USD">USD</option><option value="PKR">PKR</option><option value="EUR">EUR</option>
+<option value="GBP">GBP</option><option value="AED">AED</option><option value="SAR">SAR</option>
+<option value="CAD">CAD</option><option value="AUD">AUD</option><option value="CNY">CNY</option>
+<option value="INR">INR</option><option value="TRY">TRY</option><option value="JPY">JPY</option>
+</select></div>
+</div>
+<div class="fg"><label>To</label>
+<select id="ct">
+<option value="PKR">PKR</option><option value="USD">USD</option><option value="EUR">EUR</option>
+<option value="GBP">GBP</option><option value="AED">AED</option><option value="SAR">SAR</option>
+<option value="CAD">CAD</option><option value="AUD">AUD</option><option value="CNY">CNY</option>
+<option value="INR">INR</option><option value="TRY">TRY</option><option value="JPY">JPY</option>
+</select></div>
+<div class="fr">
+<div class="fg"><label>Custom Rate (optional)</label><input type="number" id="crate" placeholder="Leave empty for auto rate" step="0.0001"></div>
+<div class="fg"><small></small></div>
+</div>
+<button class="btn btn-blue" onclick="calcC()">Convert</button>
+<div class="res" id="cres" style="display:none">
+<h4>Result</h4>
+<div class="hl"><div class="bl" id="cl"></div><div class="big" id="cv"></div></div>
+<div class="rr" style="margin-top:8px"><span class="rl">Rate Used</span><span class="rv" id="cr"></span></div>
+</div>
+</div>
+</div>
+<div id="tax" class="tc">
+<div class="card">
+<h2>Pakistan ITF Tax Calculator</h2>
+<p>Estimate your tax under the 0.25% ITF export scheme for IT freelancers.</p>
+<div class="fr">
+<div class="fg"><label>Monthly Income (USD)</label><input type="number" id="tinc" value="2000"></div>
+<div class="fg"><label>USD to PKR Rate</label><input type="number" id="trate" value="278"></div>
+</div>
+<button class="btn btn-blue" onclick="calcT()">Estimate Tax</button>
+<div class="res" id="tres" style="display:none">
+<h4>Tax Estimate</h4>
+<div class="rr"><span class="rl">Monthly Income</span><span class="rv" id="t1"></span></div>
+<div class="rr"><span class="rl">Annual Income</span><span class="rv" id="t2"></span></div>
+<div class="rr"><span class="rl">Tax @ 0.25% ITF (yearly)</span><span class="rv" style="color:var(--amber)" id="t3"></span></div>
+<div class="rr"><span class="rl">Monthly Tax</span><span class="rv danger" id="t4"></span></div>
+<div class="rr"><span class="rl"><strong>After Tax Monthly</strong></span><span class="rv success" id="t5"></span></div>
+<div class="tip-box"><strong>Tip:</strong> 0.25% ITF needs PSEB registration. Without PSEB, normal income tax slabs (0-35%) apply. Visit <a href="https://www.pseb.org.pk" target="_blank">pseb.org.pk</a> — free for IT freelancers. Always confirm with a tax advisor.</div>
+</div>
+</div>
+</div>
+<div class="below" id="about">
+<div class="seo-card">
+<h3>Why Freelancers in Pakistan Need This</h3>
+<p>Earning in USD, EUR, or GBP means platform fees, Payoneer fees, and exchange rates all reduce your income. CalcFreelancer shows you exactly what you keep so you never undercharge. Works for Upwork, Fiverr, Freelancer, Mostaql, direct clients, or any platform.</p>
+</div>
+<div class="seo-card">
+<h3>How Platform Fees Work</h3>
+<p>Upwork charges 10%, Fiverr 20%, Freelancer.com 10%. Direct clients — no fee. You also pay 1-3% to withdraw. Always factor both when pricing.</p>
+</div>
+<h2 style="margin-top:16px">Frequently Asked Questions</h2>
+<div class="faq"><div class="faq-q">How much does Upwork charge?</div><div class="faq-a">10% service fee plus 1-3% withdrawal fees via Payoneer or Wise.</div></div>
+<div class="faq"><div class="faq-q">Best withdrawal method for Pakistan?</div><div class="faq-a">Payoneer (direct to bank, 2-3%). Wise (lower fees, 1-2%). Bank wire ($15-25 flat).</div></div>
+<div class="faq"><div class="faq-q">Do Pakistani freelancers pay tax?</div><div class="faq-a">With PSEB registration: 0.25% ITF. Without PSEB: 0-35% standard slabs.</div></div>
+<div class="faq"><div class="faq-q">Can I use this for any platform?</div><div class="faq-a">Yes. Select a preset platform, or type any name and set your own fees.</div></div>
+</div>
+</div>
+<footer>
+<div class="b"><span style="color:var(--blue)">Calc</span>Freelancer</div>
+<p>Free tools for freelancers. All calculations approximate.</p>
+<p style="margin-top:5px;opacity:.4">2025 CalcFreelancer</p>
+</footer>
+
+<script>
+// RATES to PKR
+var R={USD:278,PKR:1,EUR:302,GBP:350,AED:75.7,SAR:74.1,CAD:206,AUD:182,CNY:38.4,INR:3.35,TRY:7.8,JPY:1.85};
+function pn(c){return c||'USD'}
+function fm(n,c){if(c==='PKR')return'PKR '+Math.round(n).toLocaleString();return c+' '+n.toFixed(2)}
+function fp(n){return'PKR '+Math.round(n).toLocaleString()}
+
+// TABS
+function sw(b){document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});document.querySelectorAll('.tc').forEach(function(c){c.classList.remove('active')});b.classList.add('active');document.getElementById(b.dataset.t).classList.add('active')}
+
+// PLATFORM PICKER
+function gp(n,f,w){document.querySelectorAll('.pbtn').forEach(function(b){b.classList.remove('active')});event.target.classList.add('active');document.getElementById('pName').value=n;document.getElementById('pfee').value=f;document.getElementById('wfee').value=w;calc()}
+function gc(){document.querySelectorAll('.pbtn').forEach(function(b){b.classList.remove('active')});event.target.classList.add('active');document.getElementById('pName').value='Custom';document.getElementById('pfee').value='';document.getElementById('pfee').focus();document.getElementById('wfee').value=''}
+function upRate(){var r=R[pn(document.getElementById('cur').value)]||278;document.getElementById('prate').value=r;calc()}
+
+// EARNINGS CALC
+function calc(){
+var a=parseFloat(document.getElementById('amt').value);if(!a||a<=0){document.getElementById('eres').style.display='none';return}
+var c=document.getElementById('cur').value;var r=parseFloat(document.getElementById('prate').value)||R[c]||278;
+var pf=parseFloat(document.getElementById('pfee').value)||0;var wf=parseFloat(document.getElementById('wfee').value)||0;
+var pfv=a*(pf/100);var rem=a-pfv;var wfv=rem*(wf/100);var net=rem-wfv;var tf=pfv+wfv;
+document.getElementById('r1').textContent=fm(a,c);
+document.getElementById('r2').textContent='- '+fm(pfv,c);
+document.getElementById('r3').textContent='- '+fm(wfv,c);
+document.getElementById('r4').textContent=fm(net,c);
+document.getElementById('r5').textContent=fp(net*r);
+document.getElementById('r6').textContent=fm(tf,c)+' ('+((tf/a)*100).toFixed(1)+'%)';
+document.getElementById('r7').textContent=((net/a)*100).toFixed(1)+'% reaches your pocket';
+document.getElementById('eres').style.display='block';
+}
+
+// HOURLY
+function calcH(){
+var i=parseFloat(document.getElementById('hinc').value);if(!i||i<=0){document.getElementById('hres').style.display='none';return}
+var h=parseFloat(document.getElementById('hhrs').value)||8;var d=parseFloat(document.getElementById('hdays').value)||22;var f=parseFloat(document.getElementById('hfee').value)||0;
+var gr=i/(1-f/100)/(h*d);
+document.getElementById('h1').textContent='$'+gr.toFixed(2)+'/hr';
+document.getElementById('h2').textContent=fp(i*278);document.getElementById('h3').textContent='$'+(i*12).toLocaleString();document.getElementById('h4').textContent=fp(gr*278);
+document.getElementById('hres').style.display='block';
+}
+
+// INVOICE
+var sc=0;
+function pad(n){return n<10?'0'+n:''+n}
+function td(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+document.getElementById('idate').value=td();(function(){var d=new Date();d.setDate(d.getDate()+14);document.getElementById('idue').value=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())})();
+function addS(){sc++;var r=document.createElement('div');r.style.cssText='display:grid;grid-template-columns:2fr 1fr 1fr 28px;gap:5px;align-items:center;margin-bottom:5px';r.innerHTML='<input type="text" placeholder="Description" style="padding:7px 8px;font-size:.8rem">'+'<input type="number" placeholder="Qty" value="1" style="padding:7px 8px;font-size:.8rem">'+'<input type="number" placeholder="Rate $" value="0" style="padding:7px 8px;font-size:.8rem">'+'<button onclick="this.parentElement.remove()" style="width:26px;height:32px;border:none;border-radius:4px;background:#fef2f2;color:#ef4444;cursor:pointer;padding:0;font-size:1rem">\u00d7</button>';document.getElementById('svc').appendChild(r)}
+addS();
+function genI(){
+var f=document.getElementById('ifrom').value||'Your Name';var e=document.getElementById('imail').value;var t=document.getElementById('ito').value||'Client';var n=document.getElementById('inum').value||'INV-001';var d1=document.getElementById('idate').value||td();var d2=document.getElementById('idue').value;
+var rows=document.getElementById('svc').children;var total=0;var rh='';
+for(var i=0;i<rows.length;i++){var inp=rows[i].querySelectorAll('input');var q=parseFloat(inp[1].value)||0;var r=parseFloat(inp[2].value)||0;var l=q*r;total+=l;if(l>0)rh+='<tr style="border-bottom:1px solid #e2e8f0"><td style="padding:7px 9px;font-size:.83rem">'+(inp[0].value||'Service '+(i+1))+'</td><td style="padding:7px 9px;font-size:.83rem;text-align:center">'+q+'</td><td style="padding:7px 9px;font-size:.83rem;text-align:center">$'+r.toFixed(2)+'</td><td style="padding:7px 9px;font-size:.83rem;text-align:right">$'+l.toFixed(2)+'</td></tr>'}
+if(!total){alert('Add at least one service with rate.');return}
+var h='<div style="display:flex;justify-content:space-between;border-bottom:3px solid #3b82f6;padding-bottom:12px;margin-bottom:12px;flex-wrap:wrap"><div><div style="font-size:1.1rem;font-weight:800;color:#3b82f6">INVOICE</div><div style="font-size:.76rem;color:#64748b;margin-top:3px">'+n+'</div></div><div style="text-align:right">'+(e?f+'<br><span style="color:#64748b;font-size:.78rem">'+e+'</span>':f)+'</div></div>';
+h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.8rem;margin-bottom:12px"><div><strong style="display:block;color:#64748b;font-size:.68rem;margin-bottom:1px">BILLED TO</strong>'+t+'</div><div><strong style="display:block;color:#64748b;font-size:.68rem;margin-bottom:1px">ISSUE DATE</strong>'+d1+(d2?'<br><strong style="display:block;color:#64748b;font-size:.68rem;margin-bottom:1px;margin-top:4px">DUE DATE</strong>'+d2:'')+'</div></div>';
+h+='<table style="width:100%;border-collapse:collapse"><thead><tr style="background:#f8fafc"><th style="text-align:left;padding:7px 9px;font-size:.73rem;font-weight:600;color:#64748b;border-bottom:2px solid #e2e8f0">Description</th><th style="padding:7px 9px;font-size:.73rem;font-weight:600;color:#64748b;border-bottom:2px solid #e2e8f0;text-align:center">Qty</th><th style="padding:7px 9px;font-size:.73rem;font-weight:600;color:#64748b;border-bottom:2px solid #e2e8f0;text-align:center">Rate</th><th style="padding:7px 9px;font-size:.73rem;font-weight:600;color:#64748b;border-bottom:2px solid #e2e8f0;text-align:right">Amount</th></tr></thead><tbody>'+rh+'</tbody></table>';
+h+='<div style="text-align:right;font-size:1.05rem;font-weight:800;margin-top:8px;padding-top:8px;border-top:2px solid #3b82f6">Total: $'+total.toFixed(2)+' USD</div>';
+h+='<div style="margin-top:12px;padding-top:10px;border-top:2px dashed #e2e8f0;text-align:center;font-size:.74rem;color:#94a3b8">Payment via Payoneer / Bank Transfer. Thank you.</div>';
+document.getElementById('ibox').innerHTML=h;document.getElementById('ibox').style.display='block';document.getElementById('ibtn').style.display='block';
+}
+
+// CURRENCY
+function calcC(){
+var a=parseFloat(document.getElementById('ca').value);if(!a||a<=0){document.getElementById('cres').style.display='none';return}
+var cf=document.getElementById('cf').value;var ct=document.getElementById('ct').value;var cr=parseFloat(document.getElementById('crate').value);
+var ip=a*R[cf];var rs,rv;
+if(cr){rv=ip/cr;rs=cr.toFixed(4)+' '+ct}
+else{var rate=R[cf]/R[ct];rv=ip/rate;rs=cf+' = '+rate.toFixed(4)+' '+ct}
+document.getElementById('cl').textContent=a.toLocaleString()+' '+cf+' =';
+document.getElementById('cv').textContent=rv.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+ct;
+document.getElementById('cr').textContent=rs;
+document.getElementById('cres').style.display='block';
+}
+
+// TAX
+function calcT(){
+var i=parseFloat(document.getElementById('tinc').value);if(!i||i<=0){document.getElementById('tres').style.display='none';return}
+var r=parseFloat(document.getElementById('trate').value)||278;var ann=i*12*r;var tx=ann*0.0025;
+document.getElementById('t1').textContent=fp(i*r);document.getElementById('t2').textContent=fp(ann);document.getElementById('t3').textContent=fp(tx)+'/yr';document.getElementById('t4').textContent=fp(tx/12);document.getElementById('t5').textContent=fp(i*r-tx/12);
+document.getElementById('tres').style.display='block';
+}
+
+// AUTO INIT
+calc();calcH();calcC();calcT();
+</script>
+</body>
+</html>
